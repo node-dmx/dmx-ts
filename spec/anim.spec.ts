@@ -7,15 +7,12 @@ describe('Animations', () => {
   let dmx: DMX;
   let universeDriver: IUniverseDriver;
 
-  beforeEach(async () => {
+  beforeAll(async () => {
     dmx = new DMX();
     universeDriver = new NullDriver();
     await dmx.addUniverse('test', universeDriver);
   });
 
-  afterEach(async () => {
-    await universeDriver.close();
-  });
   afterAll(async () => {
     await universeDriver.close();
   });
