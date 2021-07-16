@@ -175,6 +175,12 @@ This event is emitted whenever <code>update</code> is called either by the integ
 
 If triggered by an animation step, <code>extraData.origin</code> will be the string <code>'animation'</code>.
 
+## Develop
+
+### Publish to NPM
+1. Run `npm version [patch / minor / major / [custom version number]]`
+1. Run `git tag v[yourVersion]`
+1. Push the tag to GitHub using `git push --tags`
 
 ## License
 [MIT](./LICENSE)
