@@ -16,6 +16,9 @@ describe('Animations', () => {
   afterEach(async () => {
     await universeDriver.close();
   });
+  afterAll(async () => {
+    await universeDriver.close();
+  });
 
   const ANIM_PRECISION = 50;
 
