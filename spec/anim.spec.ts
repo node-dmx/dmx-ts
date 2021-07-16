@@ -13,6 +13,10 @@ describe('Animations', () => {
     await dmx.addUniverse('test', universeDriver);
   });
 
+  afterEach(async () => {
+    await universeDriver.close();
+  });
+
   const ANIM_PRECISION = 50;
 
   test('fake timers', () => {
