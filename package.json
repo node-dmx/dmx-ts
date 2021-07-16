@@ -3,7 +3,7 @@
   "version": "0.1.0-beta.0",
   "author": "Sebastian Wiedenroth <wiedi@frubar.net>",
   "description": "A nodejs DMX library",
-  "url": "https://github.com/node-dmx/dmx",
+  "url": "https://github.com/node-dmx/dmx-ts",
   "main": "dist/src/index.js",
   "scripts": {
     "test": "npm run jest",
@@ -14,7 +14,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/node-dmx/dmx.git"
+    "url": "https://github.com/node-dmx/dmx-ts.git"
   },
   "files": [
     "dist"
