@@ -6,7 +6,7 @@
   "url": "https://github.com/node-dmx/dmx",
   "main": "dist/src/index.js",
   "scripts": {
-    "test": "concurrently 'npm run eslint' 'npm run jest'",
+    "test": "npm run jest",
     "eslint": "npx eslint . -c .eslintrc --ext .ts",
     "jest": "jest",
     "build": "tsc"
@@ -31,7 +31,6 @@
     "@types/socket.io": "^2.1.13",
     "@typescript-eslint/eslint-plugin": "^4.15.0",
     "@typescript-eslint/parser": "^4.15.0",
-    "concurrently": "^4.1.0",
     "eslint": "^7.19.0",
     "jest": "^24.9.0",
     "ts-loader": "^8.0.12",
