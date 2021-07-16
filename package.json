@@ -9,12 +9,16 @@
     "test": "npm run jest",
     "eslint": "npx eslint . -c .eslintrc --ext .ts",
     "jest": "jest",
-    "build": "tsc"
+    "build": "tsc",
+    "prepack": "npm run build"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/node-dmx/dmx.git"
   },
+  "files": [
+    "dist"
+  ],
   "keywords": [
     "DMX",
     "light control"
