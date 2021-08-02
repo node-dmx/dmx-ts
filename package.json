@@ -7,7 +7,7 @@
   "main": "dist/src/index.js",
   "scripts": {
     "test": "npm run jest",
-    "eslint": "npx eslint . -c .eslintrc --ext .ts",
+    "lint": "npx eslint . -c .eslintrc --ext .ts",
     "jest": "jest",
     "build": "tsc",
     "prepack": "npm run build"
@@ -21,7 +21,8 @@
   ],
   "keywords": [
     "DMX",
-    "light control"
+    "light control",
+    "typescript"
   ],
   "dependencies": {
     "sacn": "^3.2.1",
