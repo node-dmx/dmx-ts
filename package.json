@@ -1,13 +1,13 @@
 {
   "name": "dmx-ts",
-  "version": "0.1.0-beta.1",
+  "version": "0.1.1",
   "author": "Sebastian Wiedenroth <wiedi@frubar.net>",
   "description": "A nodejs DMX library",
   "url": "https://github.com/node-dmx/dmx-ts",
   "main": "dist/src/index.js",
   "scripts": {
     "test": "npm run jest",
-    "eslint": "npx eslint . -c .eslintrc --ext .ts",
+    "lint": "npx eslint . -c .eslintrc --ext .ts",
     "jest": "jest",
     "build": "tsc",
     "prepack": "npm run build"
@@ -21,7 +21,8 @@
   ],
   "keywords": [
     "DMX",
-    "light control"
+    "light control",
+    "typescript"
   ],
   "dependencies": {
     "sacn": "^3.2.1",
@@ -29,14 +30,14 @@
     "socket.io": "^2.3.0"
   },
   "devDependencies": {
-    "@types/jest": "^26.0.19",
+    "@types/jest": "^27.0.1",
     "@types/node": "^13.13.41",
     "@types/serialport": "^8.0.1",
     "@types/socket.io": "^2.1.13",
     "@typescript-eslint/eslint-plugin": "^4.15.0",
     "@typescript-eslint/parser": "^4.28.3",
     "eslint": "^7.19.0",
-    "jest": "^24.9.0",
+    "jest": "^27.2.0",
     "ts-loader": "^8.0.12",
     "typescript": "^4.1.3"
   },

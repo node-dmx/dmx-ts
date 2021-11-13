@@ -177,7 +177,7 @@ If triggered by an animation step, <code>extraData.origin</code> will be the str
 
 ## Develop
 
-### Publish to NPM
+### Publish to 
 1. Run `npm version [patch / minor / major / [custom version number]]`
 1. Run `git tag v[yourVersion]`
 1. Push the tag to GitHub using `git push --tags`
