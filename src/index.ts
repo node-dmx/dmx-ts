@@ -8,6 +8,7 @@ import { EnttecUSBDMXProDriver } from './drivers/enttec-usb-dmx-pro';
 import { NullDriver } from './drivers/null';
 import { SocketIODriver } from './drivers/socketio';
 import { EnttecOpenUSBDMXDriver } from './drivers/enttec-open-usb-dmx';
+import { SACNDriver } from './drivers/sacn';
 
 export {
   DMX,
@@ -22,4 +23,5 @@ export {
   EnttecUSBDMXProDriver,
   NullDriver,
   SocketIODriver,
+  SACNDriver,
 };
