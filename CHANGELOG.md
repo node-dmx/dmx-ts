@@ -1,6 +1,6 @@
 # Changelog
 
-## `unreleased`
+## `v0.2.0`
 
 * New Artnet lib to support multiple universes, nets and subnets
 * Fixed sACN driver not exported
