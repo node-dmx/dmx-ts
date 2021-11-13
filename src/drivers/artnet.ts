@@ -1,76 +1,50 @@
 import {EventEmitter} from 'events';
 import {IUniverseDriver, UniverseData} from '../models/IUniverseDriver';
-import dgram from 'dgram';
+import dmxlib from 'dmxnet';
 
 export interface ArtnetArgs {
-  dmxSpeed?: number,
+  unchangedDataInterval?: number,
   universe?: number,
   port?: number,
+  net?: number,
+  subnet?: number,
+  subuni?: number,
+  dmxlibOptions?: dmxlib.DmxnetOptions,
 }
 
 export class ArtnetDriver extends EventEmitter implements IUniverseDriver {
-  readyToWrite: boolean;
-  header: Buffer;
-  sequence: Buffer;
-  physical: Buffer;
-  universeId: Buffer;
-  length: Buffer;
-  universe: Buffer;
-  interval: number;
+  options: ArtnetArgs;
   host: string;
-  port: any;
-  dev: dgram.Socket;
-  timeout?: any;
+  dmxnet: dmxlib.dmxnet;
+  universe?: dmxlib.sender;
 
-  constructor(deviceId = '127.0.0.1', options: ArtnetArgs = {}) {
+  constructor(host = '127.0.0.1', options: ArtnetArgs = {}) {
     super();
-    this.readyToWrite = true;
-    this.header = Buffer.from([65, 114, 116, 45, 78, 101, 116, 0, 0, 80, 0, 14]);
-    this.sequence = Buffer.from([0]);
-    this.physical = Buffer.from([0]);
-    this.universeId = Buffer.from([0x00, 0x00]);
-    this.length = Buffer.from([0x02, 0x00]);
 
-    this.universe = Buffer.alloc(513);
-    this.universe.fill(0);
-
-    /**
-     * Allow artnet rate to be set and default to 44Hz
-     * @type Number
-     */
-    this.interval = options.dmxSpeed !== undefined && !isNaN(options.dmxSpeed) ? 1000 / options.dmxSpeed : 24;
-
-    this.universeId.writeInt16LE(options.universe || 0, 0);
-    this.host = deviceId;
-    this.port = options.port || 6454;
-    this.dev = dgram.createSocket('udp4');
-    this.dev.bind(() => this.dev.setBroadcast(true));
+    this.options = options;
+    this.host = host;
+    // eslint-disable-next-line new-cap
+    this.dmxnet = new dmxlib.dmxnet(options.dmxlibOptions);
   }
 
   async init(): Promise<void> {
-    this.start();
+    this.universe = this.dmxnet.newSender({
+      ip: this.host,
+      // eslint-disable-next-line camelcase
+      base_refresh_interval: this.options.unchangedDataInterval,
+      net: this.options.net,
+      port: this.options.port,
+      subnet: this.options.subnet,
+      subuni: this.options.subuni,
+      universe: this.options.universe,
+    });
   }
 
   sendUniverse(): void {
-    const pkg = Buffer.concat([
-      this.header,
-      this.sequence,
-      this.physical,
-      this.universeId,
-      this.length,
-      this.universe.slice(1),
-    ]);
-
-    if (this.readyToWrite) {
-      this.readyToWrite = false;
-      this.dev.send(pkg, 0, pkg.length, this.port, this.host, () => {
-        this.readyToWrite = true;
-      });
-    }
+    this.universe?.stop();
   }
 
   close(): Promise<void> {
-    this.dev.close();
     return new Promise<void>((resolve) => {
       this.stop();
       resolve();
@@ -79,27 +53,23 @@ export class ArtnetDriver extends EventEmitter implements IUniverseDriver {
 
   update(u: UniverseData, extraData?: any): void {
     for (const c in u) {
-      this.universe[c] = u[c];
+      this.universe?.prepChannel(Number(c), u[c]);
     }
+    this.sendUniverse();
 
     this.emit('update', u, extraData);
   }
 
   updateAll(v: number): void {
-    for (let i = 1; i <= 512; i++) {
-      this.universe[i] = v;
-    }
+    this.universe?.fillChannels(v, 0, 511);
+    this.sendUniverse();
   }
 
   get(c: number): number {
-    return this.universe[c];
-  }
-
-  private start(): void {
-    this.timeout = setInterval(this.sendUniverse.bind(this), this.interval);
+    return this.universe?.values?.[c]!;
   }
 
   private stop(): void {
-    if (this.timeout) clearInterval(this.timeout);
+    this.universe?.stop();
   }
 }

@@ -25,6 +25,7 @@
     "typescript"
   ],
   "dependencies": {
+    "dmxnet": "^0.8.0",
     "sacn": "^3.2.1",
     "serialport": "^9.0.7",
     "socket.io": "^2.3.0"
