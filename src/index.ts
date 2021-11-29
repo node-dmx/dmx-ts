@@ -17,7 +17,7 @@ export {
 };
 export {
   IUniverseDriver,
-  UniverseData
+  UniverseData,
 };
 export {
   ArtnetDriver,
