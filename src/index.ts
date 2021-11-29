@@ -9,10 +9,15 @@ import { NullDriver } from './drivers/null';
 import { SocketIODriver } from './drivers/socketio';
 import { EnttecOpenUSBDMXDriver } from './drivers/enttec-open-usb-dmx';
 import { SACNDriver } from './drivers/sacn';
+import { IUniverseDriver, UniverseData } from './models/IUniverseDriver';
 
 export {
   DMX,
   Animation,
+};
+export {
+  IUniverseDriver,
+  UniverseData
 };
 export {
   ArtnetDriver,
