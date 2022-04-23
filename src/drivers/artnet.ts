@@ -41,7 +41,7 @@ export class ArtnetDriver extends EventEmitter implements IUniverseDriver {
   }
 
   sendUniverse(): void {
-    this.universe?.stop();
+    this.universe?.transmit();
   }
 
   close(): Promise<void> {
