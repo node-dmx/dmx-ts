@@ -41,7 +41,7 @@ export class ArtnetDriver extends EventEmitter implements IUniverseDriver {
   }
 
   sendUniverse(): void {
-    this.universe?.stop();
+    this.universe?.transmit();
   }
 
   close(): Promise<void> {
@@ -61,7 +61,7 @@ export class ArtnetDriver extends EventEmitter implements IUniverseDriver {
   }
 
   updateAll(v: number): void {
-    this.universe?.fillChannels(v, 0, 511);
+    this.universe?.fillChannels(0, 511, v);
     this.sendUniverse();
   }
 
