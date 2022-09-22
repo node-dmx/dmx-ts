@@ -1,9 +1,12 @@
 import {EventEmitter} from 'events';
-import SerialPort from 'serialport';
+import {SerialPort, SerialPortOpenOptions} from 'serialport';
+import {AutoDetectTypes} from '@serialport/bindings-cpp';
 import {IUniverseDriver, UniverseData} from '../models/IUniverseDriver';
 
+type OpenOptions = Omit<SerialPortOpenOptions<AutoDetectTypes>, 'path'>;
+
 export interface AbstractSerialDriverArgs {
-  serialPortOptions: SerialPort.OpenOptions;
+  serialPortOptions: OpenOptions;
   sendInterval: number;
 }
 
@@ -13,7 +16,7 @@ export abstract class AbstractSerialDriver extends EventEmitter implements IUniv
   private readonly _universe: Buffer;
   private readonly _sendInterval: number;
   private readonly _serialPortName: string;
-  private readonly _serialPortOptions: SerialPort.OpenOptions;
+  private readonly _serialPortOptions: OpenOptions;
   private _intervalHandle: any | undefined = undefined;
 
   protected constructor(serialPort: string, args: AbstractSerialDriverArgs) {
@@ -27,7 +30,10 @@ export abstract class AbstractSerialDriver extends EventEmitter implements IUniv
 
   init(): Promise<void> {
     return new Promise((resolve, reject) => {
-      this._serialPort = new SerialPort(this._serialPortName, this._serialPortOptions, (err) => {
+      this._serialPort = new SerialPort({
+        ...this._serialPortOptions,
+        path: this._serialPortName,
+      }, (err) => {
         if (!err) {
           this.start();
           resolve();

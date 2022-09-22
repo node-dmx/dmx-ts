@@ -1,6 +1,6 @@
 {
   "name": "dmx-ts",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "author": "Sebastian Wiedenroth <wiedi@frubar.net>",
   "description": "A nodejs DMX library",
   "url": "https://github.com/node-dmx/dmx-ts",
@@ -26,21 +26,19 @@
   ],
   "dependencies": {
     "dmxnet": "^0.8.0",
-    "sacn": "^3.2.1",
-    "serialport": "^9.0.7",
-    "socket.io": "^2.3.0"
+    "sacn": "^4.2.0",
+    "serialport": "^10.4.0",
+    "socket.io": "^4.5.2"
   },
   "devDependencies": {
-    "@types/jest": "^27.0.1",
-    "@types/node": "^13.13.41",
-    "@types/serialport": "^8.0.1",
-    "@types/socket.io": "^2.1.13",
-    "@typescript-eslint/eslint-plugin": "^4.15.0",
-    "@typescript-eslint/parser": "^4.28.3",
-    "eslint": "^7.19.0",
-    "jest": "^27.2.0",
-    "ts-loader": "^8.0.12",
-    "typescript": "^4.1.3"
+    "@types/jest": "^29.0.3",
+    "@types/node": "^18.7.18",
+    "@typescript-eslint/eslint-plugin": "^5.38.0",
+    "@typescript-eslint/parser": "^5.38.0",
+    "eslint": "^8.23.1",
+    "jest": "^29.0.3",
+    "ts-loader": "^9.4.1",
+    "typescript": "^4.8.3"
   },
   "license": "MIT",
   "engines": {
