@@ -1,5 +1,5 @@
 import {IUniverseDriver, UniverseData} from '../models/IUniverseDriver';
-import * as io from 'socket.io';
+import { Server } from 'socket.io';
 import {EventEmitter} from 'events';
 
 export interface SocketIOArgs {
@@ -9,7 +9,7 @@ export interface SocketIOArgs {
 
 export class SocketIODriver extends EventEmitter implements IUniverseDriver {
   universe: Buffer;
-  server: io.Server;
+  server: Server;
 
   constructor(options: SocketIOArgs) {
     super();
@@ -18,7 +18,7 @@ export class SocketIODriver extends EventEmitter implements IUniverseDriver {
     const port = options.port || 18909;
     const debug = options.debug || false;
 
-    this.server = io.listen(port);
+    this.server = new Server(port, {allowEIO3: true});
     this.server.on('connection', (socket) => {
       if (debug) console.info(`Client connected [id=${socket.id}]`);
       socket.on('disconnect', () => {
