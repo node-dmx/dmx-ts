@@ -1,5 +1,13 @@
 # Changelog
 
+## `v0.3.0`
+* Update Dependencies (thanks @barlock)
+
+## `v0.2.1`
+
+* Export `IUniverseDriver` and `UniverseData`
+*+* Fixed ArtNet Driver
+
 ## `v0.2.0`
 
 * New Artnet lib to support multiple universes, nets and subnets
