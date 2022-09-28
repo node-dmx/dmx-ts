@@ -11,7 +11,10 @@ npm install dmx-ts
 
 ## Library API
 ```javascript
-const DMX = require('dmx-ts')
+// CommonJS style require
+const { DMX } = require('dmx-ts');
+// or ES import
+import { DMX } from "dmx-ts";
 ```
 
 ### Class `DMX`
