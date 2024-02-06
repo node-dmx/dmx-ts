@@ -2,15 +2,30 @@ import {EventEmitter} from 'events';
 import {IUniverseDriver, UniverseData} from '../models/IUniverseDriver';
 import * as sacn from 'sacn';
 
+export type SACNOptions = {
+  sourceName?: string;
+  priority?: number;
+  cid?: Buffer;
+  reuseAddr?: boolean;
+  interface?: string;
+  minRefreshRate?: number;
+  port?: number;
+  ip?: string;
+};
+
 export class SACNDriver extends EventEmitter implements IUniverseDriver {
-  sACNServer: any;
+  sACNServer: sacn.Sender;
   universe: any = {};
 
-  constructor(universe = 1) {
+  constructor(universe = 1, private options: SACNOptions = { reuseAddr: true }) {
     super();
     this.sACNServer = new sacn.Sender({
       universe: universe || 1,
-      reuseAddr: true,
+      reuseAddr: options.reuseAddr,
+      iface: options.interface,
+      minRefreshRate: options.minRefreshRate,
+      port: options.port,
+      useUnicastDestination: options.ip,
     });
   }
 
@@ -31,6 +46,9 @@ export class SACNDriver extends EventEmitter implements IUniverseDriver {
   sendUniverse(): void {
     this.sACNServer.send({
       payload: this.universe,
+      sourceName: this.options.sourceName,
+      priority: this.options.priority,
+      cid: this.options.cid,
     });
   }
 
