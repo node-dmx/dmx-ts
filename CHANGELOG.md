@@ -1,5 +1,9 @@
 # Changelog
 
+## `v0.4.0`
+* Update dependencies
+* Add optional options to sACN driver
+
 ## `v0.3.0`
 * Update Dependencies (thanks @barlock)
 
